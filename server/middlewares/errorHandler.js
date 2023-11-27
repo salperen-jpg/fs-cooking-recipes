@@ -1,4 +1,7 @@
+import { StatusCodes } from "http-status-codes";
 export const errorHandlerMiddleware = async (err, req, res, next) => {
   console.log(err);
-  res.status(501).send(err);
+  const statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+  const msg = err.message || "something went wrong, try again later";
+  res.status(statusCode).json({ msg: msg });
 };
