@@ -6,6 +6,7 @@ import { recipeRoute } from "./routes/recipesRoute.js";
 import { notFound } from "./middlewares/notFound.js";
 import { connectDB } from "./db/connectDB.js";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler.js";
+import { authRoute } from "./routes/authRoute.js";
 dotenv.config();
 const app = express();
 // imports
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 // recipe route
 app.use("/api/v1/recipes", recipeRoute);
+app.use("/api/v1/auth", authRoute);
 
 // errors
 app.use(notFound);
