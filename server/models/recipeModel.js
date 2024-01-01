@@ -8,6 +8,10 @@ const recipeSchema = new mongoose.Schema(
     cookingTime: Number,
     servings: Number,
     // belonging user will also come up,
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
     mealCategory: {
       type: String,
       enum: [
