@@ -1,5 +1,7 @@
-import { body, query, validationResult } from "express-validator";
+import { body, param, query, validationResult } from "express-validator";
 import { BadRequest } from "../errors/errorClasses.js";
+import mongoose from "mongoose";
+import Recipe from "../models/recipeModel.js";
 
 const validationMiddleware = (chain) => {
   return [
@@ -15,7 +17,7 @@ const validationMiddleware = (chain) => {
     },
   ];
 };
-
+// recipe validations
 const recipePostChain = [
   body("name").notEmpty().withMessage("Meal name can not be empty"),
   body("ingredients")
@@ -28,3 +30,51 @@ const recipePostChain = [
 ];
 
 export const recipePostValidation = validationMiddleware(recipePostChain);
+
+// user validations
+
+const registerPostChain = [
+  body("name").notEmpty().withMessage("name can not be empty"),
+  body("lastName").notEmpty().withMessage("last name can not be empty"),
+  body("password")
+    .notEmpty()
+    .withMessage("password can not be empty")
+    .isLength({ min: 8 })
+    .withMessage("password can not be shorter than 8 char."),
+  body("email")
+    .notEmpty()
+    .withMessage("name can not be empty")
+    .isEmail()
+    .withMessage("Email format is not supported"),
+];
+
+export const registerPostValidation = validationMiddleware(registerPostChain);
+
+// login validation
+
+const loginPostChain = [
+  body("email")
+    .notEmpty()
+    .withMessage("Mail can not be empty!")
+    .isEmail()
+    .withMessage("Email is not valid!"),
+  body("password")
+    .notEmpty()
+    .withMessage("password can not be empty")
+    .isLength({ min: 8 })
+    .withMessage("Password should be at least 8 char!"),
+];
+
+export const loginPostValidation = validationMiddleware(loginPostChain);
+
+// const id validation
+
+const idValidationChain = [
+  param("id").custom(async (id, { req }) => {
+    const isIdValid = mongoose.isValidObjectId(id);
+    const isRecipeFound = await Recipe.findOne(req.params.id);
+    console.log(isIdValid);
+  }),
+];
+
+export const checkIdValidation = validationMiddleware(idValidationChain);
