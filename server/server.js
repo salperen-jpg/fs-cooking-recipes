@@ -8,6 +8,7 @@ import { notFound } from "./middlewares/notFound.js";
 import { connectDB } from "./db/connectDB.js";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler.js";
 import { authRoute } from "./routes/authRoute.js";
+import { userRoute } from "./routes/userRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.get("/api/v1", (req, res) => {
 // recipe route
 app.use("/api/v1/recipes", authMiddleware, recipeRoute);
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", authMiddleware, userRoute);
 
 // errors
 app.use(notFound);
