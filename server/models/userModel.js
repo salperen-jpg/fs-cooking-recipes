@@ -13,4 +13,10 @@ const userSchema = new Schema({
   // image and more is coming
 });
 
+userSchema.methods.excludePass = function () {
+  const userObject = this.toObject();
+  delete userObject.password;
+  return userObject;
+};
+
 export default model("User", userSchema);
