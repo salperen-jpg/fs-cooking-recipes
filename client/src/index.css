@@ -183,13 +183,13 @@ form:hover {
 }
 form h4 {
   font-family: var(--secondary-font);
-  margin: 1rem 1rem;
+  margin: 1rem 0rem;
 }
 label {
   text-transform: capitalize;
   font-size: 0.8rem;
   letter-spacing: var(--spacing);
-  color: var(--white);
+  color: var(--grey-400);
   font-weight: 600;
 }
 input {
