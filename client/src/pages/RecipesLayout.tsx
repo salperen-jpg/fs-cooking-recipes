@@ -1,4 +1,10 @@
-const RecipesLayout = () => {
-  return <div>RecipesLayout</div>;
+import { Outlet } from 'react-router-dom';
+
+const RecipesDashboardLayout = () => {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 };
-export default RecipesLayout;
+export default RecipesDashboardLayout;
