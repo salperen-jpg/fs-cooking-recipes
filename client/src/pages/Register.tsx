@@ -1,10 +1,26 @@
 import styled from "styled-components";
 import FormRow from "../components/FormRow";
+import { Form, redirect } from "react-router-dom";
+import { customFetch } from "../utils/customFetch";
+import { toast } from "react-toastify";
+export const action = async ({ request }: any) => {
+  const formData = await request.formData();
+  const registerData = Object.fromEntries(formData);
+  console.log(registerData);
+  try {
+    const response = await customFetch.post("/auth/register", registerData);
+    toast.success("Registered successfully !");
+    return redirect("/login");
+  } catch (error: any) {
+    toast.error(error?.response?.data?.msg);
+    return null;
+  }
+};
 
 const Register = () => {
   return (
     <Wrapper>
-      <form className='form'>
+      <Form method='POST' className='form'>
         <div className='form-center'>
           <h4>register</h4>
           <FormRow name='name' type='text' defaultValue='john' />
@@ -20,7 +36,7 @@ const Register = () => {
             register
           </button>
         </div>
-      </form>
+      </Form>
     </Wrapper>
   );
 };
