@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "startClient": "cd ../client && npm run dev",
-    "start": "conc \"npm run dev\" \"npm run startClient\" "
+    "start": "conc \"npm run dev\" \"npm run startClient\" ",
+    "setup": "npm install && cd ../client && npm install"
   },
   "keywords": [],
   "author": "",
