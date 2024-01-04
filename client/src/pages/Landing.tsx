@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import cooking from "../assets/cooking.svg";
+import styled from 'styled-components';
+import cooking from '../assets/cooking.svg';
+import { Link } from 'react-router-dom';
 const Landing = () => {
   return (
     <Wrapper>
@@ -14,6 +15,14 @@ const Landing = () => {
             deleniti eaque nesciunt itaque ipsa facilis commodi sapiente
             exercitationem eos ut!
           </p>
+          <div className='btn-container'>
+            <Link to='/register' type='button' className='btn'>
+              register
+            </Link>
+            <Link to='/login' type='button' className='btn'>
+              login
+            </Link>
+          </div>
         </div>
         <img src={cooking} alt='cooking' />
       </section>
@@ -46,6 +55,13 @@ const Wrapper = styled.main`
     line-height: 2;
     margin-top: 2rem;
   }
+
+  .btn-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
   img {
     display: none;
   }
