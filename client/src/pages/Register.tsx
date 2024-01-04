@@ -1,16 +1,16 @@
-import styled from "styled-components";
-import FormRow from "../components/FormRow";
-import { Form, redirect } from "react-router-dom";
-import { customFetch } from "../utils/customFetch";
-import { toast } from "react-toastify";
+import styled from 'styled-components';
+import FormRow from '../components/FormRow';
+import { Form, redirect } from 'react-router-dom';
+import { customFetch } from '../utils/customFetch';
+import { toast } from 'react-toastify';
 export const action = async ({ request }: any) => {
   const formData = await request.formData();
   const registerData = Object.fromEntries(formData);
   console.log(registerData);
   try {
-    const response = await customFetch.post("/auth/register", registerData);
-    toast.success("Registered successfully !");
-    return redirect("/login");
+    const response = await customFetch.post('/auth/register', registerData);
+    toast.success('Registered successfully !');
+    return redirect('/login');
   } catch (error: any) {
     toast.error(error?.response?.data?.msg);
     return null;
@@ -21,7 +21,7 @@ const Register = () => {
   return (
     <Wrapper>
       <Form method='POST' className='form'>
-        <div className='form-center'>
+        <div className='form-cen'>
           <h4>register</h4>
           <FormRow name='name' type='text' defaultValue='john' />
           <FormRow
@@ -41,7 +41,7 @@ const Register = () => {
   );
 };
 
-const Wrapper = styled.main`
+export const Wrapper = styled.main`
   height: 100vh;
   display: grid;
   place-items: center;
@@ -49,6 +49,13 @@ const Wrapper = styled.main`
     padding: 1.5rem 1rem;
     width: var(--fluid-width);
     max-width: 25rem;
+  }
+  .form .form-cen {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
   }
   .form h4 {
     text-align: center;
