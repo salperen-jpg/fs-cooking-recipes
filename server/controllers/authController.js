@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { comparePassword, hashPassword } from "../utils/passwordHashing.js";
 import User from "../models//userModel.js";
-import jwt from "jsonwebtoken";
 import { createJWT } from "../utils/jwt.js";
 import { Unauthenticated } from "../errors/errorClasses.js";
 const register = async (req, res) => {
@@ -11,7 +10,7 @@ const register = async (req, res) => {
   const user = await User.create(req.body);
   res
     .status(StatusCodes.CREATED)
-    .send({ msg: "user created successfully!", user });
+    .json({ msg: "user created successfully!", user });
 };
 
 const login = async (req, res) => {

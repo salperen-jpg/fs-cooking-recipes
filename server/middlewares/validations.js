@@ -2,7 +2,7 @@ import { body, param, query, validationResult } from "express-validator";
 import { BadRequest } from "../errors/errorClasses.js";
 import mongoose from "mongoose";
 import Recipe from "../models/recipeModel.js";
-
+import User from "../models/userModel.js";
 const validationMiddleware = (chain) => {
   return [
     chain,
@@ -45,7 +45,11 @@ const registerPostChain = [
     .notEmpty()
     .withMessage("name can not be empty")
     .isEmail()
-    .withMessage("Email format is not supported"),
+    .withMessage("Email format is not supported")
+    .custom(async (val) => {
+      const isEmailInUse = await User.findOne({ email: val });
+      if (isEmailInUse) throw new BadRequest("Email in use!");
+    }),
 ];
 
 export const registerPostValidation = validationMiddleware(registerPostChain);
