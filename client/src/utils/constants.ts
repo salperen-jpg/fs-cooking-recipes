@@ -4,7 +4,7 @@ export const navbarLinks = [
   {
     id: nanoid(),
     text: "recipes",
-    path: "recipes",
+    path: "/recipes",
   },
   {
     id: nanoid(),
