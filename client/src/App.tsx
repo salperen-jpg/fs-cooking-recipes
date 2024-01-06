@@ -1,6 +1,7 @@
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
+  AddRecipe,
   LandingPage,
   LoginPage,
   Recipes,
@@ -35,6 +36,10 @@ function App() {
         {
           index: true,
           element: <Recipes />,
+        },
+        {
+          path: "addRecipe",
+          element: <AddRecipe />,
         },
       ],
     },
