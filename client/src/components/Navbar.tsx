@@ -1,18 +1,84 @@
 import styled from "styled-components";
 import { Navlinks } from ".";
+import { FaBarsStaggered } from "react-icons/fa6";
+import { useRecipeContext } from "../pages/RecipesLayout";
+import { useEffect, useRef } from "react";
+import { navbarLinks } from "../utils/constants";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const { isSidebarOpen, toggleSidebar } = useRecipeContext();
+  const navLinksOuterContainer = useRef<HTMLDivElement>(null);
+  const navLinksInnerContainer = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const values = navLinksInnerContainer.current?.getBoundingClientRect();
+    if (isSidebarOpen) {
+      console.log("now normal height");
+      console.log(values!.height);
+      navLinksOuterContainer.current!.style.height = `${values!.height}px`;
+    } else {
+      console.log("now 0px");
+      navLinksOuterContainer.current!.style.height = "0px";
+    }
+  }, [isSidebarOpen]);
+
   return (
     <Wrapper>
-      <div className="wrapper-center">
-        <h3>logo coming up</h3>
-        <Navlinks />
+      <div className="wrapper-center nav-center">
+        <header>
+          <h3>logo</h3>
+          <button className="btn hamburger-btn" onClick={toggleSidebar}>
+            <FaBarsStaggered />
+          </button>
+        </header>
+        <div className="nav-links-container" ref={navLinksOuterContainer}>
+          <div className="nav-links" ref={navLinksInnerContainer}>
+            {navbarLinks.map((navlink) => {
+              const { id, text, path } = navlink;
+              return (
+                <NavLink className="nav-link" key={id} to={path}>
+                  {text}
+                </NavLink>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.nav`
-  background-color: red;
+  background: var(--primary-300);
+
+  .nav-center {
+    /* display: flex;
+    align-items: center; */
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-links-container {
+    overflow: hidden;
+    transition: all 0.3s linear;
+  }
+  .nav-links {
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0;
+    text-transform: capitalize;
+    font-size: 0.775rem;
+    letter-spacing: var(--spacing);
+    font-weight: 600;
+    color: var(--white);
+    cursor: pointer;
+  }
 `;
 export default Navbar;
