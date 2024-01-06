@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { Navlinks } from ".";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { useRecipeContext } from "../pages/RecipesLayout";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { navbarLinks } from "../utils/constants";
 import { NavLink } from "react-router-dom";
 
