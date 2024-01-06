@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components";
 import Sidebar from "../components/Sidebar";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const initialContextState = {
   isSidebarOpen: false,
@@ -10,8 +10,10 @@ const initialContextState = {
 
 const RecipeContext = createContext(initialContextState);
 
+export const useRecipeContext = () => useContext(RecipeContext);
+
 const RecipesDashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -20,7 +22,7 @@ const RecipesDashboardLayout = () => {
   return (
     <RecipeContext.Provider value={{ isSidebarOpen, toggleSidebar }}>
       {/* sidebar out of flow does not matter where you place it  */}
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Navbar />
       <div className="wrapper-center">
         <Outlet context={{ isSidebarOpen }} />
