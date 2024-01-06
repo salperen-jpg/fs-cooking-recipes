@@ -11,17 +11,11 @@ const Navbar = () => {
   const navLinksOuterContainer = useRef<HTMLDivElement>(null);
   const navLinksInnerContainer = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const values = navLinksInnerContainer.current?.getBoundingClientRect();
-    if (isSidebarOpen) {
-      console.log("now normal height");
-      console.log(values!.height);
-      navLinksOuterContainer.current!.style.height = `${values!.height}px`;
-    } else {
-      console.log("now 0px");
-      navLinksOuterContainer.current!.style.height = "0px";
-    }
-  }, [isSidebarOpen]);
+  const outerStyles = {
+    height: isSidebarOpen
+      ? `${navLinksInnerContainer.current?.getBoundingClientRect().height}px`
+      : "0px",
+  };
 
   return (
     <Wrapper>
@@ -32,7 +26,11 @@ const Navbar = () => {
             <FaBarsStaggered />
           </button>
         </header>
-        <div className="nav-links-container" ref={navLinksOuterContainer}>
+        <div
+          className="nav-links-container"
+          ref={navLinksOuterContainer}
+          style={outerStyles}
+        >
           <div className="nav-links" ref={navLinksInnerContainer}>
             {navbarLinks.map((navlink) => {
               const { id, text, path } = navlink;
