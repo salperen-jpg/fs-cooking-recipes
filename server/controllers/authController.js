@@ -21,8 +21,7 @@ const login = async (req, res) => {
     throw new Unauthenticated("invalid credentials");
   }
   // create jwt and attach the cookie
-  const token = createJWT({ user: specificUser.id });
-  console.log(token);
+  const token = createJWT({ user: specificUser._id });
 
   const oneDayInMs = 1000 * 60 * 60 * 24;
 
@@ -32,7 +31,7 @@ const login = async (req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
 
-  res.status(StatusCodes.OK).send("Login");
+  res.status(StatusCodes.OK).json({ msg: "login successful" });
 };
 
 const logout = async (req, res) => {
