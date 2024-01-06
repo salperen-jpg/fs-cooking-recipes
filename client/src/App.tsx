@@ -4,8 +4,9 @@ import {
   AddRecipe,
   LandingPage,
   LoginPage,
+  Profile,
   Recipes,
-  RecipesDashboardLayout,
+  RecipesLayout,
   RegisterPage,
 } from "./pages";
 import { action as registerAction } from "./pages/Register";
@@ -30,7 +31,7 @@ function App() {
     },
     {
       path: "/recipes",
-      element: <RecipesDashboardLayout />,
+      element: <RecipesLayout />,
       loader: recipesLayoutLoader,
       children: [
         {
@@ -40,6 +41,10 @@ function App() {
         {
           path: "addRecipe",
           element: <AddRecipe />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
         },
       ],
     },
