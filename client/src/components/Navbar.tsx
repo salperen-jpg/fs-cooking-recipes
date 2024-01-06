@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <Wrapper>
-      <div className="wrapper-center nav-center">
+      <div className="nav-center">
         <header>
           <h3>logo</h3>
           <div className="right-side">
@@ -56,7 +56,11 @@ const Navbar = () => {
 const Wrapper = styled.nav`
   background: var(--primary-300);
   padding: 1rem 0;
-
+  .nav-center {
+    width: var(--fluid-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
   header {
     display: flex;
     align-items: center;
