@@ -11,6 +11,7 @@ import {
 } from "./pages";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
+import { action as addRecipeAction } from "./pages/AddRecipe";
 import { loader as recipesLayoutLoader } from "./pages/RecipesLayout";
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         {
           path: "addRecipe",
           element: <AddRecipe />,
+          action: addRecipeAction,
         },
         {
           path: "profile",
