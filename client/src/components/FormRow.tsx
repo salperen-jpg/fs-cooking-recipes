@@ -1,11 +1,11 @@
-interface FormRowProp {
+export interface IFormRowProp {
   name: string;
   type: string;
   defaultValue: string;
   labelDisplay?: string;
 }
 
-const FormRow: React.FC<FormRowProp> = ({
+const FormRow: React.FC<IFormRowProp> = ({
   name,
   type,
   defaultValue,
