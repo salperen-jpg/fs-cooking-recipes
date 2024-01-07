@@ -13,6 +13,7 @@ import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as addRecipeAction } from "./pages/AddRecipe";
 import { loader as recipesLayoutLoader } from "./pages/RecipesLayout";
+import { loader as recipesLoader } from "./pages/Recipes";
 
 function App() {
   const router = createBrowserRouter([
@@ -38,6 +39,7 @@ function App() {
         {
           index: true,
           element: <Recipes />,
+          loader: recipesLoader,
         },
         {
           path: "addRecipe",
