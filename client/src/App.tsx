@@ -12,6 +12,7 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as addRecipeAction } from "./pages/AddRecipe";
+import { action as deleteRecipeAction } from "./pages/DeleteRecipe";
 import { loader as recipesLayoutLoader } from "./pages/RecipesLayout";
 import { loader as recipesLoader } from "./pages/Recipes";
 
@@ -45,6 +46,10 @@ function App() {
           path: "addRecipe",
           element: <AddRecipe />,
           action: addRecipeAction,
+        },
+        {
+          path: "deleteRecipe/:id",
+          action: deleteRecipeAction,
         },
         {
           path: "profile",

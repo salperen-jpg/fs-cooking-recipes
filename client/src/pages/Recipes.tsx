@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
-import { useLoaderData } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import IRecipe from "../models/recipe.modal";
 
 export const loader = async () => {
@@ -26,9 +26,11 @@ const Recipes = () => {
               <button type='button' className='btn'>
                 Edit
               </button>
-              <button type='button' className='btn'>
-                Delete
-              </button>
+              <Form method='POST' action={`./deleteRecipe/${_id}`}>
+                <button type='submit' className='btn'>
+                  delete
+                </button>
+              </Form>
             </div>
           </div>
         );
