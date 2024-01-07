@@ -204,6 +204,16 @@ input {
   font-size: 1rem;
   background-color: var(--white);
 }
+select {
+  border: none;
+  outline: none;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  letter-spacing: var(--spacing);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background-color: var(--white);
+}
 input::placeholder {
   font-size: 0.8rem;
   font-family: inherit;
