@@ -5,10 +5,10 @@ import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
 import IUser from "../models/user.modal";
 import { useNavigate } from "react-router-dom";
+
 export const loader = async () => {
   try {
     const { data } = await customFetch.get("/user/getUser");
-    console.log(data);
     return data.user;
   } catch (error: any) {
     toast.error(error?.response?.data?.msg);
@@ -53,7 +53,7 @@ const RecipesDashboardLayout = () => {
       {/* sidebar out of flow does not matter where you place it  */}
       {/* <Sidebar /> */}
       <Navbar />
-      <div className="wrapper-center">
+      <div className='wrapper-center'>
         <Outlet context={{ isSidebarOpen }} />
       </div>
     </RecipeContext.Provider>
