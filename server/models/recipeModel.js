@@ -5,7 +5,7 @@ const recipeSchema = new mongoose.Schema(
     name: String,
     ingredients: [String],
     // image will come up at some point,
-    cookingTime: Number,
+    cookingTime: String,
     servings: Number,
     // belonging user will also come up,
     createdBy: {
