@@ -1,5 +1,5 @@
 import { body, param, query, validationResult } from "express-validator";
-import { BadRequest } from "../errors/errorClasses.js";
+import { BadRequest, Unauthorized } from "../errors/errorClasses.js";
 import mongoose from "mongoose";
 import Recipe from "../models/recipeModel.js";
 import User from "../models/userModel.js";
@@ -76,8 +76,12 @@ export const loginPostValidation = validationMiddleware(loginPostChain);
 const idValidationChain = [
   param("id").custom(async (id, { req }) => {
     const isIdValid = mongoose.isValidObjectId(id);
-    const isRecipeFound = await Recipe.findOne(req.params.id);
-    console.log(isIdValid);
+    if (!isIdValid) throw new Error("Invalid MongoDB Id!");
+    const actualRecipe = await Recipe.findOne({ _id: req.params.id });
+    if (!actualRecipe) throw new Error(`No recipe with the id of ${id}`);
+    if (actualRecipe.createdBy.toString() !== req.user.user) {
+      throw new Unauthorized(`Not authorized`);
+    }
   }),
 ];
 
