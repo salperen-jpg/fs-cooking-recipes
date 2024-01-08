@@ -59,7 +59,9 @@ const EditRecipe = () => {
             name='ingredients'
             placeholder="'Please type ingredient comma separated!'"
             defaultValue={ingredients.join(",")}
-          />
+          >
+            {ingredients.join(",")}
+          </FormTextarea>
           <button type='submit' className='btn submit-btn'>
             Create recipe
           </button>
