@@ -6,3 +6,4 @@ export { default as RecipesLayout } from "./RecipesLayout";
 export { default as Recipes } from "./Recipes";
 export { default as AddRecipe } from "./AddRecipe";
 export { default as Profile } from "./Profile";
+export { default as EditRecipe } from "./EditRecipe";

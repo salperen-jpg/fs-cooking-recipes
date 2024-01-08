@@ -12,9 +12,11 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as addRecipeAction } from "./pages/AddRecipe";
+import EditRecipe, { action as editRecipeAction } from "./pages/EditRecipe";
 import { action as deleteRecipeAction } from "./pages/DeleteRecipe";
 import { loader as recipesLayoutLoader } from "./pages/RecipesLayout";
 import { loader as recipesLoader } from "./pages/Recipes";
+import { loader as editRecipeLoader } from "./pages/EditRecipe";
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +48,12 @@ function App() {
           path: "addRecipe",
           element: <AddRecipe />,
           action: addRecipeAction,
+        },
+        {
+          path: "editRecipe/:id",
+          element: <EditRecipe />,
+          loader: editRecipeLoader,
+          action: editRecipeAction,
         },
         {
           path: "deleteRecipe/:id",
