@@ -13,7 +13,7 @@ export const loader = async (data: any) => {
     } = await customFetch.get(`/recipes/${id}`);
     return recipe;
   } catch (error: any) {
-    error?.response?.data?.msg;
+    console.log(error?.response?.data?.msg);
   }
   return null;
 };
@@ -26,8 +26,7 @@ export const action = async ({ request, params }: any) => {
   data.ingredients = ingredientArr;
   try {
     const response = await customFetch.patch(`/recipes/${id}`, data);
-    console.log(response);
-    toast.success("Edited successfully !");
+    toast.success(response.data.msg);
     return redirect("/recipes");
   } catch (error: any) {
     toast.error(error?.response?.data?.msg);
