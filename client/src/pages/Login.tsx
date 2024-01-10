@@ -1,5 +1,5 @@
 import FormRow from "../components/FormRow";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
 import { Wrapper } from "./Register";
@@ -17,19 +17,21 @@ export const action = async ({ request }: any) => {
 };
 
 const Login = () => {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
   return (
     <Wrapper>
-      <Form method='POST' className='form'>
-        <div className='form-cen'>
+      <Form method="POST" className="form">
+        <div className="form-cen">
           <h4>login</h4>
-          <FormRow name='email' type='email' defaultValue='john@gmail.com' />
-          <FormRow name='password' type='password' defaultValue='12345678' />
-          <button type='submit' className='btn'>
+          <FormRow name="email" type="email" defaultValue="john@gmail.com" />
+          <FormRow name="password" type="password" defaultValue="12345678" />
+          <button type="submit" className="btn" disabled={isLoading}>
             login
           </button>
           <small>
             You are not a member ?
-            <Link to='/register' className='navigation-btn'>
+            <Link to="/register" className="navigation-btn">
               sign up
             </Link>
           </small>

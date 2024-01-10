@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { FormRow, FormSelect, FormTextarea } from "../components";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
@@ -37,6 +37,8 @@ export const action = async ({ request, params }: any) => {
 const EditRecipe = () => {
   const recipe = useLoaderData() as IRecipe;
   const { name, cookingTime, ingredients, servings, mealCategory } = recipe;
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
   return (
     <Wrapper>
       <Form method="POST">
@@ -74,7 +76,7 @@ const EditRecipe = () => {
           >
             {ingredients.join(",")}
           </FormTextarea>
-          <button type="submit" className="btn submit-btn">
+          <button type="submit" className="btn submit-btn" disabled={isLoading}>
             Edit recipe
           </button>
         </div>

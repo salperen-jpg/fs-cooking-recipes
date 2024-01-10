@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
-import { Form, Link, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
 import IRecipe from "../models/recipe.modal";
+import { Loading } from "../components";
 
 export const loader = async () => {
   try {
@@ -15,6 +16,10 @@ export const loader = async () => {
 
 const Recipes = () => {
   const recipes = useLoaderData() as IRecipe[];
+  const navigation = useNavigation();
+  const isPageLoading = navigation.state === "loading";
+
+  if (isPageLoading) return <Loading />;
   return (
     <Wrapper>
       {recipes.map((recipe) => {
@@ -22,12 +27,12 @@ const Recipes = () => {
         return (
           <div key={_id}>
             <h4>{name}</h4>
-            <div className='btn-container'>
-              <Link to={`./editRecipe/${_id}`} className='btn'>
+            <div className="btn-container">
+              <Link to={`./editRecipe/${_id}`} className="btn">
                 Edit
               </Link>
-              <Form method='POST' action={`./deleteRecipe/${_id}`}>
-                <button type='submit' className='btn'>
+              <Form method="POST" action={`./deleteRecipe/${_id}`}>
+                <button type="submit" className="btn">
                   delete
                 </button>
               </Form>

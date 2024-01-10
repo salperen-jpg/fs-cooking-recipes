@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import FormRow from "../components/FormRow";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useNavigation } from "react-router-dom";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
 
@@ -18,6 +18,9 @@ export const action = async ({ request }: any) => {
 };
 
 const Register = () => {
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+
   return (
     <Wrapper>
       <Form method="POST" className="form">
@@ -32,7 +35,7 @@ const Register = () => {
           />
           <FormRow name="email" type="email" defaultValue="john@gmail.com" />
           <FormRow name="password" type="password" defaultValue="12345678" />
-          <button type="submit" className="btn">
+          <button type="submit" className="btn" disabled={isLoading}>
             register
           </button>
           <small>
