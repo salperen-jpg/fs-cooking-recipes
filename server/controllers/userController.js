@@ -8,7 +8,12 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  res.send("User updated!");
+  const { user: id } = req.user.user;
+  // check password
+  const newProfile = { ...req.body };
+  const user = await User.findByIdAndUpdate(id, newProfile);
+
+  res.status(StatusCodes.OK).json({ msg: "User Updated!" });
 };
 
 export { getUser, updateUser };
