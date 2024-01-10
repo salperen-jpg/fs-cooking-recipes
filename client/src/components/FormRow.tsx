@@ -1,7 +1,7 @@
 export interface IFormRowProp {
   name: string;
   type: string;
-  defaultValue: string;
+  defaultValue: string | undefined;
   labelDisplay?: string;
 }
 
@@ -12,7 +12,7 @@ const FormRow: React.FC<IFormRowProp> = ({
   labelDisplay,
 }) => {
   return (
-    <div className='form-row'>
+    <div className="form-row">
       <label htmlFor={name}>{labelDisplay || name}</label>
       <input type={type} name={name} id={type} defaultValue={defaultValue} />
     </div>
