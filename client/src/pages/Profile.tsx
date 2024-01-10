@@ -3,6 +3,11 @@ import { useRecipeContext } from "./RecipesLayout";
 import { FormRow } from "../components";
 import { Form } from "react-router-dom";
 
+export const action = async (data: any) => {
+  console.log(data);
+  return null;
+};
+
 const Profile = () => {
   const { user } = useRecipeContext();
   return (
