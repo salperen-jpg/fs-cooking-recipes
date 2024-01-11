@@ -16,6 +16,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   const specificUser = await User.findOne({ email: email });
+  // for avoiding internal server error if spec user is not there for some reason!
+  if (!specificUser)
+    throw new Error("Email could not find , please re-check your email !");
   const isPassCorrect = await comparePassword(password, specificUser.password);
   if (!specificUser || !isPassCorrect) {
     throw new Unauthenticated("invalid credentials");
