@@ -2,10 +2,19 @@ import styled from "styled-components";
 import { useRecipeContext } from "./RecipesLayout";
 import { FormRow } from "../components";
 import { Form } from "react-router-dom";
+import { customFetch } from "../utils/customFetch";
+import { toast } from "react-toastify";
 
-export const action = async (data: any) => {
-  console.log(data);
-  return null;
+export const action = async ({ request }: any) => {
+  const formData = await request.formData();
+  const newUserData = Object.fromEntries(formData);
+  try {
+    const response = await customFetch.patch("/user/updateUser", newUserData);
+    console.log(response);
+    return toast.success(response.data.msg);
+  } catch (error: any) {
+    return toast.error(error?.response?.data?.msg);
+  }
 };
 
 const Profile = () => {
@@ -32,5 +41,9 @@ const Profile = () => {
   );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  .form-center {
+    align-items: flex-end;
+  }
+`;
 export default Profile;
