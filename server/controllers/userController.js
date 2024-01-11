@@ -8,11 +8,11 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { user: id } = req.user.user;
+  const { user: id } = req.user;
   // check password
   const newProfile = { ...req.body };
-  const user = await User.findByIdAndUpdate(id, newProfile);
-
+  console.log(newProfile);
+  await User.findByIdAndUpdate(id, newProfile);
   res.status(StatusCodes.OK).json({ msg: "User Updated!" });
 };
 
