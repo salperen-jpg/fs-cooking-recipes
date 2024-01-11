@@ -45,5 +45,9 @@ const Wrapper = styled.section`
   .form-center {
     align-items: flex-end;
   }
+  .btn {
+    padding: 0.75rem 1rem;
+    border: none;
+  }
 `;
 export default Profile;
