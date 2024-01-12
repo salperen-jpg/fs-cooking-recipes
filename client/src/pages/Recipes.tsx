@@ -26,7 +26,7 @@ const Recipes = () => {
         const { name, _id } = recipe;
         return (
           <div key={_id}>
-            <h4>{name}</h4>
+            <h4 className="text-3xl underline">{name}</h4>
             <div className="btn-container">
               <Link to={`./editRecipe/${_id}`} className="btn">
                 Edit
