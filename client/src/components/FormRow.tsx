@@ -14,7 +14,7 @@ const FormRow: React.FC<IFormRowProp> = ({
   return (
     <div className="form-row">
       <label htmlFor={name}>{labelDisplay || name}</label>
-      <input type={type} name={name} id={type} defaultValue={defaultValue} />
+      <input type={type} name={name} id={name} defaultValue={defaultValue} />
     </div>
   );
 };
