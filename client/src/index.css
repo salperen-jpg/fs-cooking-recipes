@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .wrapper-center {
+    @apply px-4 mx-auto max-w-7xl;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-4 bg-emerald-500 text-slate-100 capitalize tracking-wider rounded-lg cursor-pointer hover:bg-emerald-700 transition-all delay-150;
+  }
+}
+
+@layer components {
+  .form {
+    @apply w-1/5 p-8 bg-white rounded-xl shadow-sm hover:shadow-md delay-200;
+  }
+}
+
+@layer components {
+  .form-row {
+    @apply flex flex-col gap-2 mb-4;
+  }
+  .form-row label {
+    @apply text-slate-500 capitalize;
+  }
+  .form-row input {
+    @apply bg-slate-50 p-3 rounded-lg appearance-none border-none outline-0 tracking-wider;
+  }
+}
