@@ -18,11 +18,11 @@ const Navbar = () => {
   };
 
   return (
-    <Wrapper>
-      <div className="nav-center">
-        <header>
+    <nav className="bg-emerald-200 flex items-center justify-between ">
+      <div className="wrapper-center w-full">
+        <header className="flex justify-between">
           <h3>logo</h3>
-          <div className="right-side">
+          <div className="flex gap-4 right-side">
             <button className="btn hamburger-btn" onClick={toggleSidebar}>
               <FaBarsStaggered />
             </button>
@@ -30,26 +30,33 @@ const Navbar = () => {
           </div>
         </header>
         <div
-          className="nav-links-container"
+          className="nav-links-container overflow-hidden transition-all delay-150"
           ref={navLinksOuterContainer}
           style={outerStyles}
         >
-          <div className="nav-links" ref={navLinksInnerContainer}>
+          <div
+            className="nav-links pt-4 flex flex-col gap-4 "
+            ref={navLinksInnerContainer}
+          >
             {navbarLinks.map((navlink) => {
               const { id, text, path } = navlink;
               return (
-                <NavLink className="nav-link" key={id} to={path}>
+                <NavLink
+                  className="nav-link block capitalize tracking-wider text-gray-500 pb-2"
+                  key={id}
+                  to={path}
+                >
                   {text}
                 </NavLink>
               );
             })}
           </div>
         </div>
-        <div className="user-container-bigger-screen">
+        <div className="user-container-bigger-screen hidden">
           <UserContainer />
         </div>
       </div>
-    </Wrapper>
+    </nav>
   );
 };
 
