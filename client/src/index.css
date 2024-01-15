@@ -16,7 +16,7 @@
 
 @layer components {
   .form {
-    @apply w-1/5 p-8 bg-white rounded-xl shadow-sm hover:shadow-md delay-200;
+    @apply w-4/5   p-8 bg-slate-200 rounded-xl shadow-sm hover:shadow-lg delay-200 md:w-96;
   }
 }
 
