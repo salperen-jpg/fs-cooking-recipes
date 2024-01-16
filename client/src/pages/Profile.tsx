@@ -8,9 +8,13 @@ import { toast } from "react-toastify";
 export const action = async ({ request }: any) => {
   const formData = await request.formData();
   const newUserData = Object.fromEntries(formData);
+  const avatar = formData.get("avatar");
+  if (avatar.size > 800000) {
+    toast.error("Avatar can not be bigger than 8MB!");
+    return null;
+  }
   try {
     const response = await customFetch.patch("/user/updateUser", newUserData);
-    console.log(response);
     return toast.success(response.data.msg);
   } catch (error: any) {
     return toast.error(error?.response?.data?.msg);
@@ -21,9 +25,13 @@ const Profile = () => {
   const { user } = useRecipeContext();
   return (
     <Wrapper>
-      <Form method="POST">
+      <Form method="POST" encType="multipart/form-data">
         <h4>Profile</h4>
         <div className="form-center">
+          <div className="form-row">
+            <label htmlFor="avatar">photo</label>
+            <input type="file" name="avatar" id="avatar" />
+          </div>
           <FormRow type="text" name="name" defaultValue={user?.name} />
           <FormRow
             type="text"
