@@ -11,6 +11,8 @@ const userSchema = new Schema({
     default: "user",
   },
   // image and more is coming
+  avatar: String,
+  avatarStringId: String,
 });
 
 userSchema.methods.excludePass = function () {
