@@ -7,14 +7,15 @@ import { toast } from "react-toastify";
 
 export const action = async ({ request }: any) => {
   const formData = await request.formData();
-  const newUserData = Object.fromEntries(formData);
+  // const newUserData = Object.fromEntries(formData);
+  console.log(formData);
   const avatar = formData.get("avatar");
   if (avatar.size > 800000) {
     toast.error("Avatar can not be bigger than 8MB!");
     return null;
   }
   try {
-    const response = await customFetch.patch("/user/updateUser", newUserData);
+    const response = await customFetch.patch("/user/updateUser", formData);
     return toast.success(response.data.msg);
   } catch (error: any) {
     return toast.error(error?.response?.data?.msg);
