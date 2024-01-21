@@ -12,7 +12,15 @@ const UserContainer = () => {
       className="user-container"
       onClick={() => setIsDropDownOpen(!isDropDownOpen)}
     >
-      <FaUser />
+      {user ? (
+        <img
+          src={user.avatar}
+          alt=""
+          style={{ width: "20px", height: "20px" }}
+        />
+      ) : (
+        <FaUser />
+      )}
       <span>{user?.name}</span>
       {isDropDownOpen ? <BiSolidUpArrow /> : <BiSolidDownArrow />}
       <div
