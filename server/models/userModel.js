@@ -12,7 +12,7 @@ const userSchema = new Schema({
   },
   // image and more is coming
   avatar: String,
-  avatarStringId: String,
+  avatarPublicId: String,
 });
 
 userSchema.methods.excludePass = function () {

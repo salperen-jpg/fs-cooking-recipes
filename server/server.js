@@ -10,10 +10,17 @@ import { errorHandlerMiddleware } from "./middlewares/errorHandler.js";
 import { authRoute } from "./routes/authRoute.js";
 import { userRoute } from "./routes/userRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
+import cloudinary from "cloudinary";
 
 dotenv.config();
 const app = express();
 // imports
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLODINARY_API_SECRET,
+});
 
 // middlewares
 app.use(express.json());
