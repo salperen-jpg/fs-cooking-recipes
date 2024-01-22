@@ -10,6 +10,7 @@ const getRecipes = async (req, res) => {
 // add recipe
 const addRecipe = async (req, res) => {
   console.log(req.body);
+  console.log(req.file);
   req.body.createdBy = req.user.user;
   await Recipe.create(req.body);
   res.status(StatusCodes.CREATED).send({ msg: "recipe created successfully" });

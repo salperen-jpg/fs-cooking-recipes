@@ -11,7 +11,7 @@ export const action = async ({ request }: any) => {
   const recipe = Object.fromEntries(formData);
   recipe.ingredients = ingredientsArray;
   try {
-    const response = await customFetch.post("/recipes", recipe);
+    const response = await customFetch.post("/recipes", ingredientsArray);
     toast.success(response.data.msg);
     return redirect("/recipes");
   } catch (error: any) {
@@ -22,20 +22,24 @@ export const action = async ({ request }: any) => {
 const AddRecipe = () => {
   return (
     <Wrapper>
-      <Form method='POST'>
+      <Form method="POST" encType="multipart/form-data">
         <h4>Create Recipe</h4>
-        <div className='form-center'>
-          <FormRow type='text' name='name' defaultValue='Kebab' />
+        <div className="form-center">
+          <div className="form-row">
+            <label htmlFor="recipeAvatar">Recipe Image</label>
+            <input type="file" name="recipeAvatar" id="recipeAvatar" />
+          </div>
+          <FormRow type="text" name="name" defaultValue="Kebab" />
           <FormRow
-            type='text'
-            name='cookingTime'
-            defaultValue='30min'
-            labelDisplay='cooking time'
+            type="text"
+            name="cookingTime"
+            defaultValue="30min"
+            labelDisplay="cooking time"
           />
-          <FormRow type='number' name='servings' defaultValue='3' />
+          <FormRow type="number" name="servings" defaultValue="3" />
           <FormSelect
-            name='mealCategory'
-            labelDisplay='meal category'
+            name="mealCategory"
+            labelDisplay="meal category"
             list={[
               "vegetarian",
               "breakfast",
@@ -44,13 +48,13 @@ const AddRecipe = () => {
               "dinner",
               "desserts",
             ]}
-            defaultValue='dinner'
+            defaultValue="dinner"
           />
           <FormTextarea
-            name='ingredients'
+            name="ingredients"
             placeholder="'Please type ingredient comma separated!'"
           />
-          <button type='submit' className='btn submit-btn'>
+          <button type="submit" className="btn submit-btn">
             Create recipe
           </button>
         </div>
