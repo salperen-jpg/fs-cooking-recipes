@@ -23,11 +23,17 @@ const Recipes = () => {
   return (
     <Wrapper>
       {recipes.map((recipe) => {
-        const { name, _id } = recipe;
+        const { name, _id, recipeAvatar } = recipe;
         return (
           <div key={_id}>
+            <img
+              src={recipeAvatar}
+              alt="recipe"
+              style={{ width: "300px", height: "300px" }}
+            />
             <h4 className="text-3xl underline">{name}</h4>
             <div className="btn-container">
+              <img src="" alt="" />
               <Link to={`./editRecipe/${_id}`} className="btn">
                 Edit
               </Link>
@@ -44,5 +50,9 @@ const Recipes = () => {
   );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  form {
+    width: auto;
+  }
+`;
 export default Recipes;
