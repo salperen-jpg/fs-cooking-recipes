@@ -11,7 +11,7 @@ export const action = async ({ request }: any) => {
   const recipe = Object.fromEntries(formData);
   recipe.ingredients = ingredientsArray;
   try {
-    const response = await customFetch.post("/recipes", ingredientsArray);
+    const response = await customFetch.post("/recipes", formData);
     toast.success(response.data.msg);
     return redirect("/recipes");
   } catch (error: any) {

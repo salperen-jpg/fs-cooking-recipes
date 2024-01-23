@@ -1,6 +1,7 @@
+import { formatImage } from "../middlewares/multer.js";
 import Recipe from "../models/recipeModel.js";
 import { StatusCodes } from "http-status-codes";
-
+import cloudinary from "cloudinary";
 // get recipes
 const getRecipes = async (req, res) => {
   const recipes = await Recipe.find({});
@@ -9,10 +10,16 @@ const getRecipes = async (req, res) => {
 
 // add recipe
 const addRecipe = async (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-  req.body.createdBy = req.user.user;
-  await Recipe.create(req.body);
+  const newRecipe = req.body;
+  if (req.file) {
+    const file = formatImage(req.file);
+    const response = await cloudinary.v2.uploader.upload(file);
+    newRecipe.recipeAvatar = response.secure_url;
+    newRecipe.recipeAvatarId = response.public_id;
+  }
+  newRecipe.createdBy = req.user.user;
+  console.log(newRecipe);
+  await Recipe.create(newRecipe);
   res.status(StatusCodes.CREATED).send({ msg: "recipe created successfully" });
 };
 
@@ -26,8 +33,18 @@ const getSingleRecipe = async (req, res) => {
 // update recipes
 const updateRecipe = async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
-  await Recipe.findOneAndUpdate({ _id: id }, req.body, { new: true });
+  const newRecipe = req.body;
+  if (req.file) {
+    const file = formatImage(req.file);
+    const response = await cloudinary.v2.uploader.upload(file);
+    newRecipe.recipeAvatar = response.secure_url;
+    newRecipe.recipeAvatarId = response.public_id;
+  }
+  const updatedRecipe = await Recipe.findOneAndUpdate({ _id: id }, newRecipe);
+  if (req.file && updateRecipe.recipeAvatarId) {
+    await cloudinary.v2.uploader.destroy(updatedUser.recipeAvatarId);
+  }
+  console.log(updatedRecipe);
   res.status(StatusCodes.OK).json({ msg: "Updated successfully" });
 };
 

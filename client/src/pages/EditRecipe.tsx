@@ -21,11 +21,11 @@ export const loader = async (data: any) => {
 export const action = async ({ request, params }: any) => {
   const { id } = params;
   const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+  // const data = Object.fromEntries(formData);
   const ingredientArr = formData.get("ingredients").split(",");
-  data.ingredients = ingredientArr;
+  // data.ingredients = ingredientArr;
   try {
-    const response = await customFetch.patch(`/recipes/${id}`, data);
+    const response = await customFetch.patch(`/recipes/${id}`, formData);
     toast.success(response.data.msg);
     return redirect("/recipes");
   } catch (error: any) {
@@ -37,13 +37,18 @@ export const action = async ({ request, params }: any) => {
 const EditRecipe = () => {
   const recipe = useLoaderData() as IRecipe;
   const { name, cookingTime, ingredients, servings, mealCategory } = recipe;
+  console.log(recipe);
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
   return (
     <Wrapper>
-      <Form method="POST">
+      <Form method="POST" encType="multipart/form-data">
         <h4>Edit Recipe</h4>
         <div className="form-center">
+          <div className="form-row">
+            <label htmlFor="recipeAvatar">Recipe Image</label>
+            <input type="file" name="recipeAvatar" id="recipeAvatar" />
+          </div>
           <FormRow type="text" name="name" defaultValue={name} />
           <FormRow
             type="text"

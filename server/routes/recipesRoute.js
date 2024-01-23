@@ -17,9 +17,9 @@ export const recipeRoute = Router();
 recipeRoute
   .route("/")
   .get(getRecipes)
-  .post(upload.single("recipeAvatar"), recipePostValidation, addRecipe);
+  .post(upload.single("recipeAvatar"), addRecipe);
 recipeRoute
   .route("/:id")
   .get(checkIdValidation, getSingleRecipe)
-  .patch(updateRecipe)
+  .patch(upload.single("recipeAvatar"), updateRecipe)
   .delete(deleteRecipe);
