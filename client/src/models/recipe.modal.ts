@@ -7,6 +7,8 @@ interface IRecipe {
   createdAt: string;
   createdBy: string;
   updatedAt: string;
+  recipeAvatar: string;
+  recipeAvatarId: string;
   __v: number;
   _id: string;
 }
