@@ -37,7 +37,6 @@ export const action = async ({ request, params }: any) => {
 const EditRecipe = () => {
   const recipe = useLoaderData() as IRecipe;
   const { name, cookingTime, ingredients, servings, mealCategory } = recipe;
-  console.log(recipe);
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
   return (
