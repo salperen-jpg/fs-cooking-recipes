@@ -18,11 +18,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-emerald-200 flex items-center justify-between ">
-      <div className="wrapper-center w-full">
-        <header className="flex justify-between">
+    <nav className="bg-emerald-200 flex items-center py-6">
+      <div className="px-4 mx-auto w-11/12 max-w-7xl ">
+        <header className="flex justify-between items-center  w-full  ">
           <h3>logo</h3>
-          <div className="flex gap-4 right-side">
+          <div className="flex items-center justify-between gap-4 right-side ">
             <button className="btn hamburger-btn" onClick={toggleSidebar}>
               <FaBarsStaggered />
             </button>
@@ -42,7 +42,7 @@ const Navbar = () => {
               const { id, text, path } = navlink;
               return (
                 <NavLink
-                  className="nav-link block capitalize tracking-wider text-gray-500 pb-2"
+                  className="nav-link block capitalize tracking-wider text-gray-700 pb-2 font-bold "
                   key={id}
                   to={path}
                 >
