@@ -4,7 +4,7 @@
 
 @layer components {
   .wrapper-center {
-    @apply px-4 mx-auto max-w-7xl;
+    @apply px-4 mx-auto max-w-7xl py-24;
   }
 }
 
@@ -29,5 +29,11 @@
   }
   .form-row input {
     @apply bg-slate-50 p-3 rounded-lg appearance-none border-none outline-0 tracking-wider;
+  }
+}
+
+@layer components {
+  .right-side {
+    @apply md:hidden;
   }
 }
