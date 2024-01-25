@@ -1,78 +1,37 @@
-import styled from 'styled-components';
-import cooking from '../assets/cooking.svg';
-import { Link } from 'react-router-dom';
+import cooking from "../assets/cooking.svg";
+import { Link } from "react-router-dom";
+
 const Landing = () => {
   return (
-    <Wrapper>
-      <nav>
-        <span>Logo will come up</span>
+    <>
+      <nav className="bg-emerald-200">
+        <div className="wrapper-center h-20 grid items-center">
+          <span>Logo will come up</span>
+        </div>
       </nav>
-      <section>
-        <div className='info'>
-          <h2>Who says no to mom recipe ?</h2>
-          <p>
+      <section className="wrapper-center h-[calc(100vh-5rem)] grid items-center md: grid-cols-2 ">
+        <div className="info">
+          <h2 className="italic  font-bold text-3xl capitalize mb-4 tracking-wide">
+            Who says no to mom recipe ?
+          </h2>
+          <p className="leading-7 mb-4 max-w-md">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim
             deleniti eaque nesciunt itaque ipsa facilis commodi sapiente
             exercitationem eos ut!
           </p>
-          <div className='btn-container'>
-            <Link to='/register' type='button' className='btn'>
+          <div className="flex gap-4">
+            <Link to="/register" type="button" className="btn">
               register
             </Link>
-            <Link to='/login' type='button' className='btn'>
+            <Link to="/login" type="button" className="btn">
               login
             </Link>
           </div>
         </div>
-        <img src={cooking} alt='cooking' />
+        <img src={cooking} alt="cooking" className="hidden md:block " />
       </section>
-    </Wrapper>
+    </>
   );
 };
 
-const Wrapper = styled.main`
-  nav {
-    height: var(--nav-height);
-    width: var(--fluid-width);
-    max-width: var(--max-width);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-  }
-
-  section {
-    height: calc(100vh - var(--nav-height));
-    display: grid;
-    place-items: center;
-    width: var(--fluid-width);
-    max-width: var(--max-width);
-    margin: 0 auto;
-    align-items: center;
-  }
-
-  p {
-    max-width: 30rem;
-    line-height: 2;
-    margin-top: 2rem;
-  }
-
-  .btn-container {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  img {
-    display: none;
-  }
-  @media (min-width: 900px) {
-    section {
-      grid-template-columns: 1fr 1fr;
-    }
-    img {
-      display: block;
-      max-width: 500px;
-    }
-  }
-`;
 export default Landing;
