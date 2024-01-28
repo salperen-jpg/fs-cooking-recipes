@@ -13,12 +13,12 @@ export const navbarLinks = [
   },
   {
     id: nanoid(),
-    text: "admin",
-    path: "admin",
+    text: "profile",
+    path: "profile",
   },
   {
     id: nanoid(),
-    text: "profile",
-    path: "profile",
+    text: "admin",
+    path: "admin",
   },
 ];
