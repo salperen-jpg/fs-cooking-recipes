@@ -1,9 +1,8 @@
-import styled from "styled-components";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
-import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import IRecipe from "../models/recipe.modal";
-import { Loading } from "../components";
+import { Loading, Title, SingleRecipe } from "../components";
 
 export const loader = async () => {
   try {
@@ -21,38 +20,15 @@ const Recipes = () => {
 
   if (isPageLoading) return <Loading />;
   return (
-    <Wrapper>
-      {recipes.map((recipe) => {
-        const { name, _id, recipeAvatar } = recipe;
-        return (
-          <div key={_id}>
-            <img
-              src={recipeAvatar}
-              alt="recipe"
-              style={{ width: "300px", height: "300px" }}
-            />
-            <h4 className="text-3xl underline">{name}</h4>
-            <div className="btn-container">
-              <img src="" alt="" />
-              <Link to={`./editRecipe/${_id}`} className="btn">
-                Edit
-              </Link>
-              <Form method="POST" action={`./deleteRecipe/${_id}`}>
-                <button type="submit" className="btn">
-                  delete
-                </button>
-              </Form>
-            </div>
-          </div>
-        );
-      })}
-    </Wrapper>
+    <>
+      <Title title="Recipes" />
+      <section className="grid  md:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 ">
+        {recipes.map((recipe) => {
+          return <SingleRecipe key={recipe._id} {...recipe} />;
+        })}
+      </section>
+    </>
   );
 };
 
-const Wrapper = styled.section`
-  form {
-    width: auto;
-  }
-`;
 export default Recipes;
