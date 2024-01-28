@@ -7,3 +7,5 @@ export { default as Recipes } from "./Recipes";
 export { default as AddRecipe } from "./AddRecipe";
 export { default as Profile } from "./Profile";
 export { default as EditRecipe } from "./EditRecipe";
+export { default as Recipe } from "./Recipe";
+export { default as Admin } from "./Admin";

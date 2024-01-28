@@ -8,6 +8,8 @@ import {
   Recipes,
   RecipesLayout,
   RegisterPage,
+  Recipe,
+  Admin,
 } from "./pages";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
@@ -18,6 +20,8 @@ import { action as profileAction } from "./pages/Profile";
 import { loader as recipesLayoutLoader } from "./pages/RecipesLayout";
 import { loader as recipesLoader } from "./pages/Recipes";
 import { loader as editRecipeLoader } from "./pages/EditRecipe";
+import { loader as singleRecipeLoader } from "./pages/Recipe";
+import { loader as adminLoader } from "./pages/Admin";
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +50,11 @@ function App() {
           loader: recipesLoader,
         },
         {
+          path: ":id",
+          element: <Recipe />,
+          loader: singleRecipeLoader,
+        },
+        {
           path: "addRecipe",
           element: <AddRecipe />,
           action: addRecipeAction,
@@ -64,6 +73,11 @@ function App() {
           path: "profile",
           element: <Profile />,
           action: profileAction,
+        },
+        {
+          path: "admin",
+          element: <Admin />,
+          loader: adminLoader,
         },
       ],
     },
