@@ -28,7 +28,7 @@ const RecipeContext = createContext(initialContextState);
 export const useRecipeContext = () => useContext(RecipeContext);
 
 const RecipesDashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const user = useLoaderData() as IUser;
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ const RecipesDashboardLayout = () => {
       {/* sidebar out of flow does not matter where you place it  */}
       {/* <Sidebar /> */}
       <Navbar />
-      <div className='wrapper-center'>
+      <div className="wrapper-center">
         <Outlet context={{ isSidebarOpen }} />
       </div>
     </RecipeContext.Provider>
