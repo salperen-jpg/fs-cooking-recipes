@@ -1,12 +1,14 @@
 import IRecipe from "../models/recipe.modal";
 import { FaPlateWheat, FaClock } from "react-icons/fa6";
 import { MdFavoriteBorder } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { RecipeProperty } from ".";
 
 const SingleRecipe: React.FC<IRecipe> = ({
+  _id,
   name,
   recipeAvatar,
   cookingTime,
-  ingredients,
   servings,
   mealCategory,
 }) => {
@@ -30,12 +32,7 @@ const SingleRecipe: React.FC<IRecipe> = ({
         <h3 className="text-red-600 font-bold text-center capitalize tracking-wide">
           {name}
         </h3>
-        <div className="flex gap-4 my-4 font-bold">
-          <span className="bg-emerald-400  text-white px-2 rounded-sm">
-            Category :
-          </span>
-          <span className="capitalize">{mealCategory}</span>
-        </div>
+        <RecipeProperty property="category" value={mealCategory} />
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xl">
@@ -50,12 +47,12 @@ const SingleRecipe: React.FC<IRecipe> = ({
             <span className="text-lg">{cookingTime}</span>
           </div>
         </div>
-        <button
-          type="button"
-          className="w-full mt-4 bg-emerald-400 py-2 rounded-md text-white capitalize tracking-wider font-bold"
+        <Link
+          to={`./${_id}`}
+          className="w-full block text-center mt-4 bg-emerald-400 py-2 rounded-md text-white capitalize tracking-wider font-bold"
         >
           check it out
-        </button>
+        </Link>
       </div>
     </article>
   );
