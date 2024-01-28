@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import { useRecipeContext } from "../pages/RecipesLayout";
@@ -39,22 +38,4 @@ const UserContainer = () => {
   );
 };
 
-const Wrapper = styled.div`
-  position: relative;
-  padding: 0.5rem;
-  border: 1px solid var(--white);
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  cursor: pointer;
-  span {
-    text-transform: capitalize;
-    letter-spacing: var(--spacing);
-    font-weight: 600;
-  }
-  svg {
-    font-size: 0.75rem;
-  }
-`;
 export default UserContainer;
