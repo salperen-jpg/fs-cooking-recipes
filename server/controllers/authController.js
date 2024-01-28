@@ -4,6 +4,8 @@ import User from "../models//userModel.js";
 import { createJWT } from "../utils/jwt.js";
 import { Unauthenticated } from "../errors/errorClasses.js";
 const register = async (req, res) => {
+  const firstRegisteredUser = (await User.countDocuments({})) === 0;
+  if (firstRegisteredUser) req.body.role = "admin";
   const { password } = req.body;
   const hashedPass = await hashPassword(password);
   req.body.password = hashedPass;
