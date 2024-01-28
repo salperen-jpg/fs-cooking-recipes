@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useRecipeContext } from "./RecipesLayout";
 import { FormRow } from "../components";
 import { Form } from "react-router-dom";
@@ -25,8 +24,8 @@ export const action = async ({ request }: any) => {
 const Profile = () => {
   const { user } = useRecipeContext();
   return (
-    <Wrapper>
-      <Form method="POST" encType="multipart/form-data">
+    <section>
+      <Form method="POST" encType="multipart/form-data" className="form">
         <h4>Profile</h4>
         <div className="form-center">
           <div className="form-row">
@@ -46,17 +45,8 @@ const Profile = () => {
           </button>
         </div>
       </Form>
-    </Wrapper>
+    </section>
   );
 };
 
-const Wrapper = styled.section`
-  .form-center {
-    align-items: flex-end;
-  }
-  .btn {
-    padding: 0.75rem 1rem;
-    border: none;
-  }
-`;
 export default Profile;
