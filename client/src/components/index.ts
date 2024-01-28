@@ -7,3 +7,4 @@ export { default as FormTextarea } from "./FormTextarea";
 export { default as Loading } from "./Loading";
 export { default as Title } from "./Title";
 export { default as SingleRecipe } from "./SingleRecipe";
+export { default as RecipeProperty } from "./RecipeProperty";
