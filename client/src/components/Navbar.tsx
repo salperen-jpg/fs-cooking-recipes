@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { useRecipeContext } from "../pages/RecipesLayout";
 import { useRef } from "react";
@@ -10,7 +9,7 @@ const Navbar = () => {
   const { isSidebarOpen, toggleSidebar } = useRecipeContext();
   const navLinksOuterContainer = useRef<HTMLDivElement>(null);
   const navLinksInnerContainer = useRef<HTMLDivElement>(null);
-
+  const { user } = useRecipeContext();
   const outerStyles = {
     height: isSidebarOpen
       ? `${navLinksInnerContainer.current?.getBoundingClientRect().height}px`
@@ -35,14 +34,17 @@ const Navbar = () => {
           style={outerStyles}
         >
           <div
-            className="nav-links pt-4 flex flex-col gap-4 md:flex-row3 md:flex-row "
+            className="nav-links pt-4 flex  flex-col gap-4 md:flex-row3 md:flex-row "
             ref={navLinksInnerContainer}
           >
             {navbarLinks.map((navlink) => {
               const { id, text, path } = navlink;
+              if (path === "admin" && user?.role !== "admin") {
+                return;
+              }
               return (
                 <NavLink
-                  className="nav-link block capitalize tracking-wider text-gray-700 pb-2 font-bold "
+                  className="nav-link  capitalize tracking-wider text-gray-700 pb-2 font-bold md:pb-0 "
                   key={id}
                   to={path}
                 >
