@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { FormRow, FormSelect, FormTextarea } from "../components";
 import { customFetch } from "../utils/customFetch";
@@ -21,9 +20,7 @@ export const loader = async (data: any) => {
 export const action = async ({ request, params }: any) => {
   const { id } = params;
   const formData = await request.formData();
-  // const data = Object.fromEntries(formData);
   const ingredientArr = formData.get("ingredients").split(",");
-  // data.ingredients = ingredientArr;
   try {
     const response = await customFetch.patch(`/recipes/${id}`, formData);
     toast.success(response.data.msg);
@@ -40,8 +37,8 @@ const EditRecipe = () => {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
   return (
-    <Wrapper>
-      <Form method="POST" encType="multipart/form-data">
+    <section>
+      <Form method="POST" encType="multipart/form-data" className="form">
         <h4>Edit Recipe</h4>
         <div className="form-center">
           <div className="form-row">
@@ -85,9 +82,8 @@ const EditRecipe = () => {
           </button>
         </div>
       </Form>
-    </Wrapper>
+    </section>
   );
 };
 
-const Wrapper = styled.section``;
 export default EditRecipe;

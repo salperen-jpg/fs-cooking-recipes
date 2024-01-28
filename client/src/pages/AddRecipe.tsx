@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Form, redirect } from "react-router-dom";
 import { FormRow, FormSelect, FormTextarea } from "../components";
 import { customFetch } from "../utils/customFetch";
@@ -21,11 +20,11 @@ export const action = async ({ request }: any) => {
 
 const AddRecipe = () => {
   return (
-    <Wrapper>
-      <Form method="POST" encType="multipart/form-data">
+    <section>
+      <Form method="POST" encType="multipart/form-data" className="form">
         <h4>Create Recipe</h4>
-        <div className="form-center">
-          <div className="form-row">
+        <div className="form-center ">
+          <div className="form-row ">
             <label htmlFor="recipeAvatar">Recipe Image</label>
             <input type="file" name="recipeAvatar" id="recipeAvatar" />
           </div>
@@ -59,10 +58,8 @@ const AddRecipe = () => {
           </button>
         </div>
       </Form>
-    </Wrapper>
+    </section>
   );
 };
-
-const Wrapper = styled.section``;
 
 export default AddRecipe;
