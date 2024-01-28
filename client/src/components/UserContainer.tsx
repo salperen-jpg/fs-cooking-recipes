@@ -8,15 +8,20 @@ const UserContainer = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const { user, logout } = useRecipeContext();
   return (
-    <Wrapper
-      className="user-container"
+    <div
+      className="relative flex gap-4 items-center border-4 border-white p-2 rounded-md capitalize"
       onClick={() => setIsDropDownOpen(!isDropDownOpen)}
     >
-      {user ? (
+      {user?.avatar ? (
         <img
           src={user.avatar}
           alt=""
-          style={{ width: "20px", height: "20px" }}
+          style={{
+            width: "40px",
+            height: "40px",
+            objectFit: "cover",
+            borderRadius: "50%",
+          }}
         />
       ) : (
         <FaUser />
@@ -30,7 +35,7 @@ const UserContainer = () => {
           logout
         </button>
       </div>
-    </Wrapper>
+    </div>
   );
 };
 
@@ -50,31 +55,6 @@ const Wrapper = styled.div`
   }
   svg {
     font-size: 0.75rem;
-  }
-  .drop-down {
-    position: absolute;
-    bottom: -150%;
-    left: 0;
-    width: 100%;
-    visibility: hidden;
-  }
-  .show-drop-down {
-    visibility: visible;
-    transform: var(--transition);
-  }
-  .logout {
-    width: 100%;
-    border: 2px solid var(--white);
-    padding: 0.5rem 0.75rem;
-    background-color: var(--primary-300);
-    border-radius: var(--radius);
-    color: var(--grey-900);
-    text-transform: capitalize;
-    letter-spacing: var(--spacing);
-    transition: var(--transition);
-  }
-  .logout:hover {
-    background-color: var(--primary-500);
   }
 `;
 export default UserContainer;
