@@ -1,9 +1,8 @@
 import User from "../models/userModel.js";
+import Recipes from "../models/recipeModel.js";
 import { StatusCodes } from "http-status-codes";
 import cloudinary from "cloudinary";
-import { promises as fs } from "fs";
 import { formatImage } from "../middlewares/multer.js";
-import { log } from "console";
 
 const getUser = async (req, res) => {
   const user = await User.findOne({ _id: req.user.user });
@@ -33,4 +32,10 @@ const updateUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "User Updated!" });
 };
 
-export { getUser, updateUser };
+const admin = async (req, res) => {
+  const users = await User.countDocuments({});
+  const recipes = await Recipes.countDocuments({});
+  res.status(StatusCodes.OK).json({ users, recipes });
+};
+
+export { getUser, updateUser, admin };
