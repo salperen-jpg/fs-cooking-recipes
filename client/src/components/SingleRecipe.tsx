@@ -1,3 +1,7 @@
+interface ISingleRecipeProp {
+  favorite?: boolean;
+}
+
 import IRecipe from "../models/recipe.modal";
 import { FaPlateWheat, FaClock } from "react-icons/fa6";
 import { MdFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
@@ -7,20 +11,29 @@ import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
 import defaultImg from "../assets/default_food.jpg";
 import useFavorites from "../hooks/useFavorites";
-const SingleRecipe: React.FC<IRecipe> = ({
+const SingleRecipe: React.FC<IRecipe & ISingleRecipeProp> = ({
   _id,
   name,
   recipeAvatar,
   cookingTime,
   servings,
   mealCategory,
+  favorite,
 }) => {
   const { isLoading, favorites } = useFavorites();
 
   const addToFavorites = async () => {
     try {
       const response = await customFetch.post("/favorites", { recipeId: _id });
-      console.log(response);
+      toast.success(response.data.msg);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+    }
+  };
+
+  const removeFromFavorites = async () => {
+    try {
+      const response = await customFetch.delete(`/favorites/${_id}`);
       toast.success(response.data.msg);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
@@ -31,13 +44,15 @@ const SingleRecipe: React.FC<IRecipe> = ({
 
   return (
     <article className="relative bg-white my-8 rounded-md shadow-sm hover:shadow-md  duration-150 hover:scale-105">
-      <button
-        type="button"
-        className="text-red-700 absolute top-1 right-1 text-xl"
-        onClick={isIncludedInFav ? undefined : addToFavorites}
-      >
-        {isIncludedInFav ? <MdOutlineFavorite /> : <MdFavoriteBorder />}
-      </button>
+      {!favorite && (
+        <button
+          type="button"
+          className="text-red-700 absolute top-1 right-1 text-xl"
+          onClick={isIncludedInFav ? undefined : addToFavorites}
+        >
+          {isIncludedInFav ? <MdOutlineFavorite /> : <MdFavoriteBorder />}
+        </button>
+      )}
       <div>
         {recipeAvatar ? (
           <img
@@ -78,6 +93,15 @@ const SingleRecipe: React.FC<IRecipe> = ({
         >
           check it out
         </Link>
+        {favorite && (
+          <button
+            type="button"
+            className="w-full block text-center mt-4 bg-red-400 py-2 rounded-md text-white capitalize tracking-wider font-bold"
+            onClick={removeFromFavorites}
+          >
+            remove from favorites
+          </button>
+        )}
       </div>
     </article>
   );

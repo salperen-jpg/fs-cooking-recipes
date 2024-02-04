@@ -5,7 +5,7 @@ import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import IRecipe from "../models/recipe.modal";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-
+import defaultImg from "../assets/default_food.jpg";
 export const loader = async (data: any) => {
   const { id } = data.params;
   try {
@@ -28,7 +28,6 @@ const Recipe = () => {
     servings,
     mealCategory,
   } = recipe;
-  console.log(recipe);
   return (
     <section className="wrapper-center">
       <Link
@@ -38,13 +37,14 @@ const Recipe = () => {
         back
       </Link>
       <Title title={name} />
-      <div className="grid gap-4 md:grid-cols-2 md:gap-12">
+      <div className="grid gap-4 lg:grid-cols-2 md:gap-12">
         <div>
           <img
-            src={recipeAvatar}
+            src={recipeAvatar || defaultImg}
             alt={name}
             style={{
               aspectRatio: "1/1",
+              width: "90vw",
               maxWidth: "500px",
               objectFit: "cover",
             }}
