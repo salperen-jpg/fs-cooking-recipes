@@ -29,4 +29,11 @@ const addToFavorites = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Added to favorites!" });
 };
 
-export { getFavorites, addToFavorites };
+const deleteFavorite = async (req, res) => {
+  const { id } = req.params;
+  const removedOne = await Favorites.findOneAndDelete({ recipeId: id });
+  console.log(removedOne);
+  res.status(StatusCodes.OK).json({ msg: "removed succesfully!" });
+};
+
+export { getFavorites, addToFavorites, deleteFavorite };
