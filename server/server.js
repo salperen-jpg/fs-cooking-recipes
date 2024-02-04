@@ -9,6 +9,7 @@ import { connectDB } from "./db/connectDB.js";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler.js";
 import { authRoute } from "./routes/authRoute.js";
 import { userRoute } from "./routes/userRoute.js";
+import { favoriteRouter } from "./routes/favoriteRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 import cloudinary from "cloudinary";
 
@@ -35,7 +36,7 @@ app.get("/api/v1", (req, res) => {
 app.use("/api/v1/recipes", authMiddleware, recipeRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/user", authMiddleware, userRoute);
-
+app.use("/api/v1/favorites", authMiddleware, favoriteRouter);
 // errors
 app.use(notFound);
 app.use(errorHandlerMiddleware);
