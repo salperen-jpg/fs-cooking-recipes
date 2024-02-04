@@ -20,11 +20,11 @@ const Login = () => {
   const isLoading = navigation.state === "loading";
   return (
     <main className="h-screen grid place-items-center">
-      <Form method="POST" className="form">
-        <div className="form-cen">
-          <h4 className="text-center text-emerald-500 mb-4  text-xl capitalize tracking-wider">
+      <Form method="POST" className="form p-4 w-4/5 max-w-80">
+        <div>
+          <h3 className="text-center text-emerald-500 mb-4  text-xl capitalize tracking-wider">
             login
-          </h4>
+          </h3>
           <FormRow name="email" type="email" defaultValue="john@gmail.com" />
           <FormRow name="password" type="password" defaultValue="12345678" />
           <button
