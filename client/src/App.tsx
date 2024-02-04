@@ -10,6 +10,7 @@ import {
   RegisterPage,
   Recipe,
   Admin,
+  Favorites,
 } from "./pages";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
@@ -58,6 +59,11 @@ function App() {
           path: "addRecipe",
           element: <AddRecipe />,
           action: addRecipeAction,
+        },
+        {
+          path: "favorites",
+          element: <Favorites />,
+          loader: favoritesLoader,
         },
         {
           path: "editRecipe/:id",
