@@ -23,6 +23,7 @@ import { loader as recipesLoader } from "./pages/Recipes";
 import { loader as editRecipeLoader } from "./pages/EditRecipe";
 import { loader as singleRecipeLoader } from "./pages/Recipe";
 import { loader as adminLoader } from "./pages/Admin";
+import { loader as favoritesLoader } from "./pages/Favorites";
 
 function App() {
   const router = createBrowserRouter([
