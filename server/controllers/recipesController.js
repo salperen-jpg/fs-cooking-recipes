@@ -2,9 +2,10 @@ import { formatImage } from "../middlewares/multer.js";
 import Recipe from "../models/recipeModel.js";
 import { StatusCodes } from "http-status-codes";
 import cloudinary from "cloudinary";
+
 // get recipes
 const getRecipes = async (req, res) => {
-  const recipes = await Recipe.find({});
+  const recipes = await Recipe.find({ createdBy: req.user.user });
   res.status(StatusCodes.OK).send({ recipes });
 };
 
