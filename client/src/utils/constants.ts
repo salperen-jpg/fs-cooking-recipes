@@ -13,6 +13,11 @@ export const navbarLinks = [
   },
   {
     id: nanoid(),
+    text: "favorites",
+    path: "favorites",
+  },
+  {
+    id: nanoid(),
     text: "profile",
     path: "profile",
   },
