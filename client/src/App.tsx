@@ -24,6 +24,15 @@ import { loader as editRecipeLoader } from "./pages/EditRecipe";
 import { loader as singleRecipeLoader } from "./pages/Recipe";
 import { loader as adminLoader } from "./pages/Admin";
 import { loader as favoritesLoader } from "./pages/Favorites";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 function App() {
   const router = createBrowserRouter([
@@ -90,7 +99,13 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />;
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default App;
