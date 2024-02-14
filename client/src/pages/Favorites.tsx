@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { customFetch } from "../utils/customFetch";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import IRecipe from "../models/recipe.modal";
 import { SingleRecipe, Title } from "../components";
 
@@ -16,6 +16,20 @@ export const loader = async () => {
 
 const Favorites = () => {
   const favorites = useLoaderData() as IRecipe[];
+
+  if (favorites.length < 1) {
+    return (
+      <>
+        <Title title="Favorites" />
+        <div>
+          <h3>you don't have any favorite food yet!</h3>
+          <Link to={`/recipes`} className="btn">
+            Add some
+          </Link>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
