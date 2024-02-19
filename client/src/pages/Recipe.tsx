@@ -6,19 +6,35 @@ import IRecipe from "../models/recipe.modal";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import defaultImg from "../assets/default_food.jpg";
-export const loader = async (data: any) => {
-  const { id } = data.params;
-  try {
-    const { data } = await customFetch(`recipes/${id}`);
-    return data.recipe;
-  } catch (error: any) {
-    toast.error(error?.response?.data?.msg);
-    return redirect("/recipes");
-  }
+import { QueryClient, useQuery } from "@tanstack/react-query";
+
+export const recipeQuery = (id: string) => {
+  return {
+    queryKey: ["recipe"],
+    queryFn: async () => {
+      const { data } = await customFetch(`recipes/${id}`);
+      return data.recipe;
+    },
+  };
+};
+
+export const loader = (queryClient: QueryClient) => {
+  return async (data: any) => {
+    const { id } = data.params;
+    try {
+      await queryClient.ensureQueryData(recipeQuery(id));
+      return { id };
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return redirect("/recipes");
+    }
+  };
 };
 
 const Recipe = () => {
-  const recipe = useLoaderData() as IRecipe;
+  const { id } = useLoaderData() as { id: string };
+  const data = useQuery(recipeQuery(id));
+  if (data.isLoading) return <>lOading</>;
   const {
     _id,
     name,
@@ -27,7 +43,7 @@ const Recipe = () => {
     ingredients,
     servings,
     mealCategory,
-  } = recipe;
+  } = data.data as IRecipe;
   return (
     <section className="wrapper-center">
       <Link
