@@ -5,15 +5,29 @@ import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
 import IUser from "../models/user.modal";
 import { useNavigate } from "react-router-dom";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
-export const loader = async () => {
-  try {
-    const { data } = await customFetch.get("/user/getUser");
-    return data.user;
-  } catch (error: any) {
-    toast.error(error?.response?.data?.msg);
-    return redirect("/login");
-  }
+export const userQuery = () => {
+  return {
+    queryKey: ["user"],
+    queryFn: async (): Promise<IUser> => {
+      const { data } = await customFetch.get("/user/getUser");
+      return data.user;
+    },
+  };
+};
+
+export const loader = (queryClient: QueryClient) => {
+  return async () => {
+    try {
+      const { data } = await customFetch.get("/user/getUser");
+      await queryClient.ensureQueryData(userQuery());
+      return data.user;
+    } catch (error: any) {
+      toast.error(error?.response?.data?.msg);
+      return redirect("/login");
+    }
+  };
 };
 
 const initialContextState = {
@@ -29,7 +43,8 @@ export const useRecipeContext = () => useContext(RecipeContext);
 
 const RecipesDashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const user = useLoaderData() as IUser;
+  // const user = useLoaderData() as IUser;
+  const { data: user } = useQuery(userQuery());
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
