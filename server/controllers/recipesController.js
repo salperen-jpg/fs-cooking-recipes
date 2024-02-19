@@ -2,6 +2,7 @@ import { formatImage } from "../middlewares/multer.js";
 import Recipe from "../models/recipeModel.js";
 import { StatusCodes } from "http-status-codes";
 import cloudinary from "cloudinary";
+import Favorites from "../models/favoritesModel.js";
 
 // get recipes
 const getRecipes = async (req, res) => {
@@ -19,7 +20,6 @@ const addRecipe = async (req, res) => {
     newRecipe.recipeAvatarId = response.public_id;
   }
   newRecipe.createdBy = req.user.user;
-  console.log(newRecipe);
   await Recipe.create(newRecipe);
   res.status(StatusCodes.CREATED).send({ msg: "recipe created successfully" });
 };
@@ -53,6 +53,12 @@ const updateRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
   const { id } = req.params;
   await Recipe.findByIdAndDelete(id);
+  // check if the deleted recipe was also favorited!
+  const isDeletedRecipeFavorited = await Favorites.findOne({ recipeId: id });
+  // delete if favorite models return true otherwise return with the value
+  if (isDeletedRecipeFavorited) {
+    await Favorites.findOneAndDelete({ recipeId: id });
+  }
   res.status(200).send({ msg: "deleted successfully" });
 };
 
