@@ -10,7 +10,8 @@ import { RecipeProperty } from ".";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
 import defaultImg from "../assets/default_food.jpg";
-import useFavorites from "../hooks/useFavorites";
+import useFavorites, { favoritesQuery } from "../hooks/useFavorites";
+import { useQueryClient } from "@tanstack/react-query";
 const SingleRecipe: React.FC<IRecipe & ISingleRecipeProp> = ({
   _id,
   name,
@@ -21,10 +22,16 @@ const SingleRecipe: React.FC<IRecipe & ISingleRecipeProp> = ({
   favorite,
 }) => {
   const { isLoading, favorites } = useFavorites();
+  const queryClient = useQueryClient();
+
+  const invalidateFavQuery = async () => {
+    await queryClient.invalidateQueries(favoritesQuery());
+  };
 
   const addToFavorites = async () => {
     try {
       const response = await customFetch.post("/favorites", { recipeId: _id });
+      invalidateFavQuery();
       toast.success(response.data.msg);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
@@ -34,24 +41,27 @@ const SingleRecipe: React.FC<IRecipe & ISingleRecipeProp> = ({
   const removeFromFavorites = async () => {
     try {
       const response = await customFetch.delete(`/favorites/${_id}`);
+      invalidateFavQuery();
       toast.success(response.data.msg);
     } catch (error: any) {
       toast.error(error?.response?.data?.msg);
     }
   };
 
+  if (isLoading) return <div>loading....</div>;
+
   const isIncludedInFav = favorites?.find((fav) => fav._id === _id);
 
   return (
     <article className="relative bg-white my-8 rounded-md shadow-sm hover:shadow-md  duration-150 hover:scale-105">
       {!favorite && (
-        <button
-          type="button"
+        <Link
+          to="./favorites"
           className="text-red-700 absolute top-1 right-1 text-xl"
           onClick={isIncludedInFav ? undefined : addToFavorites}
         >
           {isIncludedInFav ? <MdOutlineFavorite /> : <MdFavoriteBorder />}
-        </button>
+        </Link>
       )}
       <div>
         {recipeAvatar ? (
