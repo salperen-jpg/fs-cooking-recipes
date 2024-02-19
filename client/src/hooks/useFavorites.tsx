@@ -1,27 +1,23 @@
 import { useEffect, useState } from "react";
 import { customFetch } from "../utils/customFetch";
 import IRecipe from "../models/recipe.modal";
+import { useQuery } from "@tanstack/react-query";
+
+export const favoritesQuery = () => {
+  return {
+    queryKey: ["favorites"],
+    queryFn: async () => {
+      const { data } = await customFetch("/favorites");
+      return data.favorites as IRecipe[];
+    },
+  };
+};
 
 const useFavorites = () => {
-  const [favorites, setFavorites] = useState<undefined | IRecipe[]>();
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, data } = useQuery(favoritesQuery());
 
-  const getFavorites = async () => {
-    try {
-      const {
-        data: { favorites },
-      } = await customFetch("/favorites");
-      setFavorites(favorites);
-      setIsLoading(false);
-    } catch (error: any) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
+  console.log(data);
 
-  useEffect(() => {
-    getFavorites();
-  }, []);
-  return { isLoading, favorites };
+  return { isLoading, favorites: data };
 };
 export default useFavorites;
