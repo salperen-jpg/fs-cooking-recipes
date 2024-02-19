@@ -2,20 +2,24 @@ import { Form, redirect } from "react-router-dom";
 import { FormRow, FormSelect, FormTextarea } from "../components";
 import { customFetch } from "../utils/customFetch";
 import { toast } from "react-toastify";
+import { QueryClient } from "@tanstack/react-query";
 
-export const action = async ({ request }: any) => {
-  const formData = await request.formData();
-  // ingredits should be array of string in the server.
-  const ingredientsArray = formData.get("ingredients").split(",");
-  const recipe = Object.fromEntries(formData);
-  recipe.ingredients = ingredientsArray;
-  try {
-    const response = await customFetch.post("/recipes", formData);
-    toast.success(response.data.msg);
-    return redirect("/recipes");
-  } catch (error: any) {
-    return toast.error(error?.response?.data?.msg);
-  }
+export const action = (queryClient: QueryClient) => {
+  return async ({ request }: any) => {
+    const formData = await request.formData();
+    // ingredits should be array of string in the server.
+    const ingredientsArray = formData.get("ingredients").split(",");
+    const recipe = Object.fromEntries(formData);
+    recipe.ingredients = ingredientsArray;
+    try {
+      const response = await customFetch.post("/recipes", formData);
+      await queryClient.invalidateQueries({ queryKey: ["recipes"] });
+      toast.success(response.data.msg);
+      return redirect("/recipes");
+    } catch (error: any) {
+      return toast.error(error?.response?.data?.msg);
+    }
+  };
 };
 
 const AddRecipe = () => {
