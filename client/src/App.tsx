@@ -1,5 +1,6 @@
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   AddRecipe,
   LandingPage,
@@ -53,47 +54,47 @@ function App() {
     {
       path: "/recipes",
       element: <RecipesLayout />,
-      loader: recipesLayoutLoader,
+      loader: recipesLayoutLoader(queryClient),
       children: [
         {
           index: true,
           element: <Recipes />,
-          loader: recipesLoader,
+          loader: recipesLoader(queryClient),
         },
         {
           path: ":id",
           element: <Recipe />,
-          loader: singleRecipeLoader,
+          loader: singleRecipeLoader(queryClient),
         },
         {
           path: "addRecipe",
           element: <AddRecipe />,
-          action: addRecipeAction,
+          action: addRecipeAction(queryClient),
         },
         {
           path: "favorites",
           element: <Favorites />,
-          loader: favoritesLoader,
+          loader: favoritesLoader(queryClient),
         },
         {
           path: "editRecipe/:id",
           element: <EditRecipe />,
-          loader: editRecipeLoader,
-          action: editRecipeAction,
+          loader: editRecipeLoader(queryClient),
+          action: editRecipeAction(queryClient),
         },
         {
           path: "deleteRecipe/:id",
-          action: deleteRecipeAction,
+          action: deleteRecipeAction(queryClient),
         },
         {
           path: "profile",
           element: <Profile />,
-          action: profileAction,
+          action: profileAction(queryClient),
         },
         {
           path: "admin",
           element: <Admin />,
-          loader: adminLoader,
+          loader: adminLoader(queryClient),
         },
       ],
     },
@@ -103,6 +104,7 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />;
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );
