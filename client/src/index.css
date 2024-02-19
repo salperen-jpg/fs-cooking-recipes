@@ -10,7 +10,7 @@
 
 @layer components {
   .btn {
-    @apply px-4 py-4 bg-emerald-500 text-slate-100 capitalize tracking-wider rounded-lg cursor-pointer hover:bg-emerald-700 transition-all delay-150;
+    @apply inline-block px-4 py-4 bg-emerald-500 text-slate-100 capitalize tracking-wider rounded-lg cursor-pointer hover:bg-emerald-700 transition-all delay-150;
   }
 }
 
